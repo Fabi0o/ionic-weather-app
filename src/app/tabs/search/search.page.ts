@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { HttpService } from 'src/app/http.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-search',
@@ -16,9 +16,12 @@ export class SearchPage {
     }),
   });
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService, private router: Router) {}
 
   onSubmit() {
-    if (this.form.valid) this.httpService.getWeather(this.form.value.cityName!);
+    if (this.form.valid) {
+      this.httpService.getWeather(this.form.value.cityName!);
+      this.router.navigateByUrl('tabs/weather');
+    }
   }
 }
