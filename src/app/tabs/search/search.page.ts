@@ -21,6 +21,7 @@ export class SearchPage {
   onSubmit() {
     if (this.form.valid) {
       this.httpService.getWeather(this.form.value.cityName!);
+      this.form.reset();
       this.router.navigateByUrl('tabs/weather');
     }
   }
