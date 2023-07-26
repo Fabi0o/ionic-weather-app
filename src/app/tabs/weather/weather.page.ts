@@ -13,6 +13,8 @@ export class WeatherPage {
 
   currentWeather!: Observable<currentWeather>;
 
+  isLoading = this.http.isLoading;
+
   ionViewWillEnter(): void {
     this.currentWeather = this.http.currentWeather;
   }
