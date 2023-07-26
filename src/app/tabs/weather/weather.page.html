@@ -6,7 +6,7 @@
 
 <ion-content
   [fullscreen]="true"
-  *ngIf="{weather:currentWeather |async, loading:isLoading|async }  as vm"
+  *ngIf="{weather:currentWeather |async, loading:isLoading|async,  }  as vm"
 >
   <ion-grid *ngIf="vm.weather else link ">
     <ion-row>
@@ -36,15 +36,21 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
   <ng-container *ngIf="vm.loading">
     <ion-grid>
       <ion-row class="ion-text-center ion-margin-top">
         <ion-col size-sm="6" offset-sm="3">
-          <ion-spinner> </ion-spinner>
+          <ion-card>
+            <ion-card-content>
+              <ion-skeleton-text animated> </ion-skeleton-text>
+            </ion-card-content>
+          </ion-card>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ng-container>
+
   <ng-template #link>
     <ion-grid *ngIf="!vm.loading">
       <ion-row>
