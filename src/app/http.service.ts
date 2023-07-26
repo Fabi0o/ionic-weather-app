@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject, Observable, delay, map, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, delay, map, switchMap, tap } from 'rxjs';
 import { currentWeather, locData } from './weather-data.model';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class HttpService {
 
   isLoading = new BehaviorSubject(false);
 
-  getWeather(city: string) {
+  getWeatherByCityName(city: string) {
     let cityName: string;
     this.isLoading.next(true);
     this.currentWeather = this.http
@@ -35,5 +35,20 @@ export class HttpService {
           return weatherData;
         })
       );
+  }
+
+  getWeatherByGeoLoc(geoLoc: locData) {
+    const { lat, lon } = geoLoc;
+    if (lat && lon) {
+      this.isLoading.next(true);
+      this.currentWeather = this.http
+        .get<currentWeather>(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${environment.apiKey}`
+        )
+        .pipe(
+          delay(1500),
+          tap(() => this.isLoading.next(false))
+        );
+    }
   }
 }
