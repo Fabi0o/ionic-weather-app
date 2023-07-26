@@ -4,4 +4,32 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true"> </ion-content>
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <ion-item>
+          <ion-select
+            label="Select Color Theme"
+            value="default"
+            (ionChange)="onChangeTheme($any($event))"
+          >
+            <ion-select-option value="default">Default</ion-select-option>
+            <ion-select-option value="dark">Dark</ion-select-option>
+            <ion-select-option value="light">Light</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <ion-item> Change language </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <ion-item> Change font size </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
