@@ -25,7 +25,7 @@ export class SettingsPage implements OnInit {
         (currentScheme) => (currentColor = currentScheme ? 'dark' : 'light')
       );
 
-    if (event.detail.value == 'default') {
+    if (event.detail.value === 'default') {
       event.detail.value = this.settings.prefersDark ? 'dark' : 'light';
     }
     this.settings.changeColorScheme(event.detail.value !== 'light');
