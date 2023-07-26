@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { take } from 'rxjs';
+import { AlertController } from '@ionic/angular';
+import { catchError, of, take } from 'rxjs';
 import { GeoLocService } from 'src/app/geo-loc.service';
 import { HttpService } from 'src/app/http.service';
 import { SettingsService } from 'src/app/settings.service';
@@ -23,7 +24,8 @@ export class SearchPage implements OnInit {
     private httpService: HttpService,
     private router: Router,
     private geoLoc: GeoLocService,
-    private settings: SettingsService
+    private settings: SettingsService,
+    private alertCtrl: AlertController
   ) {}
 
   ngOnInit(): void {
@@ -34,9 +36,29 @@ export class SearchPage implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      this.httpService.getWeatherByCityName(this.form.value.cityName!);
-      this.form.reset();
-      this.router.navigateByUrl('tabs/weather');
+      this.httpService
+        .getWeatherByCityName(this.form.value.cityName!)
+        .pipe(
+          catchError((err) => {
+            return of(err);
+          })
+        )
+        .subscribe((data) => {
+          if (!data.stack) {
+            this.form.reset();
+            this.router.navigateByUrl('tabs/weather');
+          } else
+            this.alertCtrl
+              .create({
+                header: 'Error',
+                message: `Could not find city of name ${this.form.value.cityName}`,
+                buttons: ['OK'],
+              })
+              .then((alertEl) => {
+                alertEl.present();
+                alertEl.onDidDismiss().then(() => this.form.reset());
+              });
+        });
     }
   }
 

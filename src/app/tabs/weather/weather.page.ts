@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, take } from 'rxjs';
+import { Observable, delay, map, take, tap } from 'rxjs';
 import { HttpService } from 'src/app/http.service';
 import { SettingsService } from 'src/app/settings.service';
 import { currentWeather } from 'src/app/weather-data.model';
@@ -23,6 +23,13 @@ export class WeatherPage implements OnInit {
   isLoading = this.http.isLoading;
 
   ionViewWillEnter(): void {
-    this.currentWeather = this.http.currentWeather;
+    this.currentWeather = this.http.currentWeather.pipe(
+      map((data) => {
+        this.http.isLoading.next(true);
+        return data;
+      }),
+      delay(1500),
+      tap(() => this.http.isLoading.next(false))
+    );
   }
 }
