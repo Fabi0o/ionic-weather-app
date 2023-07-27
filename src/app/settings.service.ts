@@ -18,5 +18,10 @@ export class SettingsService {
     this._isCurrentDark$.next(document.body.classList.contains('dark'));
   }
 
+  setFontSize(size: 'small' | 'default' | 'big') {
+    document.body.classList.toggle('big-font', size === 'big');
+    document.body.classList.toggle('small-font', size === 'small');
+  }
+
   constructor() {}
 }

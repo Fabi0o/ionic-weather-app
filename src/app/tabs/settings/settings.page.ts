@@ -30,4 +30,8 @@ export class SettingsPage implements OnInit {
     }
     this.settings.changeColorScheme(event.detail.value !== 'light');
   }
+
+  onChangeFontSize(event: CustomEvent) {
+    this.settings.setFontSize(event.detail.value);
+  }
 }
