@@ -71,6 +71,7 @@ export class SearchPage implements OnInit {
   }
 
   onGetGeoLoc() {
+    console.log(this.form);
     this.loadingCtrl.create().then((laodingEl) => {
       laodingEl.present();
 
