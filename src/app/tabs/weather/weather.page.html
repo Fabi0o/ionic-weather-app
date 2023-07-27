@@ -4,55 +4,38 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content
-  [fullscreen]="true"
-  *ngIf="{weather:currentWeather |async, loading:isLoading|async,  }  as vm"
->
-  <ion-grid *ngIf="vm.weather else link ">
+<ion-content [fullscreen]="true">
+  <ion-grid *ngIf="currentWeather |async as weather else link">
     <ion-row>
       <ion-col size-sm="6" offset-sm="3">
         <ion-card class="ion-text-center">
           <img
             alt="Weather Icone"
-            [src]="'http://openweathermap.org/img/w/'+vm.weather.weather[0].icon+'.png'"
+            [src]="'http://openweathermap.org/img/w/'+weather.weather[0].icon+'.png'"
           />
           <ion-card-header>
-            <ion-card-title>{{vm.weather.name}}</ion-card-title>
+            <ion-card-title>{{weather.name}}</ion-card-title>
             <ion-card-subtitle>
-              Current temp: {{vm.weather.main.temp | number:'2.0-0' }}°C
+              Current temp: {{weather.main.temp | number:'2.0-0' }}°C
             </ion-card-subtitle>
             <ion-card-subtitle>
-              Max temp: {{vm.weather.main.temp_max | number:'2.0-0' }}°C
+              Max temp: {{weather.main.temp_max | number:'2.0-0' }}°C
             </ion-card-subtitle>
             <ion-card-subtitle>
-              Min temp: {{vm.weather.main.temp_min | number:'2.0-0' }}°C
+              Min temp: {{weather.main.temp_min | number:'2.0-0' }}°C
             </ion-card-subtitle>
           </ion-card-header>
 
           <ion-card-content>
-            {{vm.weather.weather[0].description | titlecase }}
+            {{weather.weather[0].description | titlecase }}
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ng-container *ngIf="vm.loading">
-    <ion-grid>
-      <ion-row class="ion-text-center ion-margin-top">
-        <ion-col size-sm="6" offset-sm="3">
-          <ion-card>
-            <ion-card-content>
-              <ion-skeleton-text animated> </ion-skeleton-text>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ng-container>
-
   <ng-template #link>
-    <ion-grid *ngIf="!vm.loading">
+    <ion-grid>
       <ion-row>
         <ion-col size-sm="6" offset-sm="3">
           <ion-item routerLink="/tabs/search">

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
-import { catchError, of, take } from 'rxjs';
+import { AlertController, LoadingController } from '@ionic/angular';
+import { catchError, of, take, tap } from 'rxjs';
 import { GeoLocService } from 'src/app/geo-loc.service';
 import { HttpService } from 'src/app/http.service';
 import { SettingsService } from 'src/app/settings.service';
@@ -16,7 +16,7 @@ export class SearchPage implements OnInit {
   form = new FormGroup({
     cityName: new FormControl('', {
       updateOn: 'change',
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.pattern(/^[A-Za-z]+$/)],
     }),
   });
 
@@ -25,7 +25,8 @@ export class SearchPage implements OnInit {
     private router: Router,
     private geoLoc: GeoLocService,
     private settings: SettingsService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit(): void {
@@ -36,37 +37,50 @@ export class SearchPage implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      this.httpService
-        .getWeatherByCityName(this.form.value.cityName!)
-        .pipe(
-          catchError((err) => {
-            return of(err);
-          })
-        )
-        .subscribe((data) => {
-          if (!data.stack) {
-            this.form.reset();
-            this.router.navigateByUrl('tabs/weather');
-          } else
-            this.alertCtrl
-              .create({
-                header: 'Error',
-                message: `Could not find city of name ${this.form.value.cityName}`,
-                buttons: ['OK'],
-              })
-              .then((alertEl) => {
-                alertEl.present();
-                alertEl.onDidDismiss().then(() => this.form.reset());
-              });
-        });
+      this.loadingCtrl.create().then((loadingEl) => {
+        loadingEl.present();
+
+        this.httpService
+          .getWeatherByCityName(this.form.value.cityName!)
+          .pipe(
+            catchError((err) => {
+              return of(err);
+            })
+          )
+          .subscribe((data) => {
+            if (!data.stack) {
+              loadingEl.dismiss();
+              this.form.reset();
+              this.router.navigateByUrl('tabs/weather');
+            } else {
+              loadingEl.dismiss();
+              this.alertCtrl
+                .create({
+                  header: 'Error',
+                  message: `Could not find city of name ${this.form.value.cityName}`,
+                  buttons: ['OK'],
+                })
+                .then((alertEl) => {
+                  alertEl.present();
+                  alertEl.onDidDismiss().then(() => this.form.reset());
+                });
+            }
+          });
+      });
     }
   }
 
   onGetGeoLoc() {
-    this.geoLoc.currentGeoLoc().then((geoLoc) => {
-      this.httpService.getWeatherByGeoLoc(geoLoc);
-      this.form.reset();
-      this.router.navigateByUrl('tabs/weather');
+    this.loadingCtrl.create().then((laodingEl) => {
+      laodingEl.present();
+
+      this.geoLoc.currentGeoLoc().then((geoLoc) => {
+        this.httpService.getWeatherByGeoLoc(geoLoc);
+
+        laodingEl.dismiss();
+        this.form.reset();
+        this.router.navigateByUrl('tabs/weather');
+      });
     });
   }
 }

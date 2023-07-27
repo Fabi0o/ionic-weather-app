@@ -1,16 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import {
-  BehaviorSubject,
-  Observable,
-  catchError,
-  delay,
-  map,
-  of,
-  switchMap,
-  tap,
-} from 'rxjs';
+import { BehaviorSubject, Observable, map, switchMap, tap } from 'rxjs';
 import { currentWeather, locData } from './weather-data.model';
 
 @Injectable({
@@ -53,10 +44,7 @@ export class HttpService {
         .get<currentWeather>(
           `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${environment.apiKey}`
         )
-        .pipe(
-          delay(1500),
-          tap(() => this.isLoading.next(false))
-        );
+        .pipe(tap(() => this.isLoading.next(false)));
     }
   }
 }

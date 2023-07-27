@@ -20,16 +20,7 @@ export class WeatherPage implements OnInit {
 
   currentWeather!: Observable<currentWeather>;
 
-  isLoading = this.http.isLoading;
-
   ionViewWillEnter(): void {
-    this.currentWeather = this.http.currentWeather.pipe(
-      map((data) => {
-        this.http.isLoading.next(true);
-        return data;
-      }),
-      delay(1500),
-      tap(() => this.http.isLoading.next(false))
-    );
+    this.currentWeather = this.http.currentWeather;
   }
 }
