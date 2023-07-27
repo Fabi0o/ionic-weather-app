@@ -38,13 +38,8 @@ export class HttpService {
 
   getWeatherByGeoLoc(geoLoc: locData) {
     const { lat, lon } = geoLoc;
-    if (lat && lon) {
-      this.isLoading.next(true);
-      this.currentWeather = this.http
-        .get<currentWeather>(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${environment.apiKey}`
-        )
-        .pipe(tap(() => this.isLoading.next(false)));
-    }
+    return (this.currentWeather = this.http.get<currentWeather>(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${environment.apiKey}`
+    ));
   }
 }
