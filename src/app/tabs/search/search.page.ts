@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { catchError, of, take, tap } from 'rxjs';
+import { catchError, of, take } from 'rxjs';
 import { GeoLocService } from 'src/app/geo-loc.service';
 import { HttpService } from 'src/app/http.service';
 import { SettingsService } from 'src/app/settings.service';
@@ -41,7 +41,9 @@ export class SearchPage implements OnInit {
         loadingEl.present();
 
         this.httpService
-          .getWeatherByCityName(this.form.value.cityName!)
+          .setCurrentWeather(
+            this.httpService.getWeatherByCityName(this.form.value.cityName!)
+          )
           .pipe(
             catchError((err) => {
               return of(err);
@@ -71,12 +73,13 @@ export class SearchPage implements OnInit {
   }
 
   onGetGeoLoc() {
-    console.log(this.form);
     this.loadingCtrl.create().then((laodingEl) => {
       laodingEl.present();
 
       this.geoLoc.currentGeoLoc().then((geoLoc) => {
-        this.httpService.getWeatherByGeoLoc(geoLoc);
+        this.httpService.setCurrentWeather(
+          this.httpService.getWeatherByGeoLoc(geoLoc)
+        );
 
         laodingEl.dismiss();
         this.form.reset();

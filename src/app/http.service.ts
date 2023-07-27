@@ -16,7 +16,7 @@ export class HttpService {
 
   getWeatherByCityName(city: string) {
     let cityName: string;
-    return (this.currentWeather = this.http
+    return this.http
       .get<locData[]>(
         `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${environment.apiKey}`
       )
@@ -33,13 +33,17 @@ export class HttpService {
           weatherData.name = cityName;
           return weatherData;
         })
-      ));
+      );
   }
 
   getWeatherByGeoLoc(geoLoc: locData) {
     const { lat, lon } = geoLoc;
-    return (this.currentWeather = this.http.get<currentWeather>(
+    return this.http.get<currentWeather>(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${environment.apiKey}`
-    ));
+    );
+  }
+
+  setCurrentWeather(currWeather: Observable<currentWeather>) {
+    return (this.currentWeather = currWeather);
   }
 }
