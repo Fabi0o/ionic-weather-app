@@ -18,7 +18,7 @@ export class HttpService {
     let cityName: string;
     return (this.currentWeather = this.http
       .get<locData[]>(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${environment.apiKey}`
+        `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${environment.apiKey}`
       )
       .pipe(
         switchMap((geoLoc) => {
