@@ -19,7 +19,6 @@ export class AppComponent {
       if (perm.display === 'denied') return;
       this.geoLoc.currentGeoLoc().then((geoLoc) => {
         this.http.getWeatherByGeoLoc(geoLoc).subscribe((weather) => {
-          console.log(weather);
           LocalNotifications.schedule({
             notifications: [
               {
@@ -32,7 +31,7 @@ export class AppComponent {
                   weather.weather[0].description
                 }`,
                 id: 1,
-                schedule: { every: 'second', count: 10 },
+                schedule: { every: 'second', count: 10, repeats: true },
               },
             ],
           });
