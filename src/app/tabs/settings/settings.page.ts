@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { take } from 'rxjs';
 import { SettingsService } from 'src/app/settings.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-settings',
@@ -15,9 +14,9 @@ export class SettingsPage {
     private translate: TranslateService
   ) {}
 
-  defaultLang = this.translate.getDefaultLang();
+  currFontSize$ = this.settings.currFontSize$;
 
-  currFontSize = this.settings.currFontSize$;
+  currLanguage$ = this.settings.currLanguage$;
 
   onChangeTheme(event: CustomEvent) {
     let currentColor;
@@ -39,7 +38,6 @@ export class SettingsPage {
   }
 
   onChangeLang(event: CustomEvent) {
-    if (event.detail.value === 'default') this.translate.use(this.defaultLang);
-    else this.translate.use(event.detail.value);
+    this.settings.changeLanguage(event.detail.value);
   }
 }

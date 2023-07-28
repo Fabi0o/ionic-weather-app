@@ -29,7 +29,11 @@ export class AppComponent {
       .subscribe((isDark) => this.settings.changeColorScheme(isDark));
 
     translate.setDefaultLang('en');
-    translate.use('en');
+    Preferences.get({ key: 'language' }).then((res) => {
+      if (res.value) {
+        this.settings.changeLanguage(res.value as 'pl' | 'en' | 'default');
+      } else translate.use(translate.defaultLang);
+    });
 
     this.initializeApp();
   }

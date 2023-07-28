@@ -32,7 +32,7 @@
         <ion-item
           ><ion-select
             [label]="'SETTINGS.LANGINPUT.LABEL'|translate"
-            value="default"
+            [value]="currLanguage$|async"
             (ionChange)="onChangeLang($any($event))"
           >
             <ion-select-option value="default"
@@ -53,7 +53,7 @@
         <ion-item>
           <ion-select
             [label]="'SETTINGS.FONTINPUT.LABEL'|translate"
-            [value]="currFontSize|async"
+            [value]="currFontSize$|async"
             (ionChange)="onChangeFontSize($any($event))"
           >
             <ion-select-option value="default"

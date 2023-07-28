@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
 import { BehaviorSubject } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -14,12 +15,20 @@ export class SettingsService {
     'default'
   );
 
+  private _currLanguage$ = new BehaviorSubject<'default' | 'pl' | 'en'>(
+    'default'
+  );
+
   get isCurrentDark$() {
     return this._isCurrentDark$;
   }
 
   get currFontSize$() {
     return this._currFontSize$;
+  }
+
+  get currLanguage$() {
+    return this._currLanguage$;
   }
 
   changeColorScheme(bool: boolean) {
@@ -34,5 +43,12 @@ export class SettingsService {
     document.body.classList.toggle('small-font', size === 'small');
   }
 
-  constructor() {}
+  async changeLanguage(lang: 'pl' | 'en' | 'default') {
+    await Preferences.set({ key: 'language', value: lang });
+    this.currLanguage$.next(lang);
+    if (lang === 'default') this.translate.use(this.translate.getDefaultLang());
+    else this.translate.use(lang);
+  }
+
+  constructor(private translate: TranslateService) {}
 }
