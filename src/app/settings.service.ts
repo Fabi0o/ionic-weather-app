@@ -7,9 +7,15 @@ import { TranslateService } from '@ngx-translate/core';
   providedIn: 'root',
 })
 export class SettingsService {
-  prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  defaultColor: 'dark' | 'light' = window.matchMedia(
+    '(prefers-color-scheme: dark)'
+  ).matches
+    ? 'dark'
+    : 'light';
 
-  private _isCurrentDark$ = new BehaviorSubject<boolean>(this.prefersDark);
+  private _currColor$ = new BehaviorSubject<'dark' | 'light' | 'default'>(
+    this.defaultColor
+  );
 
   private _currFontSize$ = new BehaviorSubject<'default' | 'big' | 'small'>(
     'default'
@@ -19,8 +25,8 @@ export class SettingsService {
     'default'
   );
 
-  get isCurrentDark$() {
-    return this._isCurrentDark$;
+  get currentColor$() {
+    return this._currColor$;
   }
 
   get currFontSize$() {
@@ -31,9 +37,14 @@ export class SettingsService {
     return this._currLanguage$;
   }
 
-  changeColorScheme(bool: boolean) {
-    document.body.classList.toggle('dark', bool);
-    this._isCurrentDark$.next(document.body.classList.contains('dark'));
+  async changeColorScheme(color: 'dark' | 'light' | 'default') {
+    await Preferences.set({
+      key: 'color',
+      value: color,
+    });
+    this._currColor$.next(color);
+    if (color === 'default') color = this.defaultColor;
+    document.body.classList.toggle('dark', 'dark' === color);
   }
 
   async setFontSize(size: 'small' | 'default' | 'big') {

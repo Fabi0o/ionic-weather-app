@@ -11,7 +11,7 @@
         <ion-item>
           <ion-select
             [label]="'SETTINGS.COLORINPUT.LABEL'|translate"
-            value="default"
+            [value]="currColor$ |async"
             (ionChange)="onChangeTheme($any($event))"
           >
             <ion-select-option value="default"

@@ -18,19 +18,10 @@ export class SettingsPage {
 
   currLanguage$ = this.settings.currLanguage$;
 
+  currColor$ = this.settings.currentColor$;
+
   onChangeTheme(event: CustomEvent) {
-    let currentColor;
-
-    this.settings.isCurrentDark$
-      .pipe(take(1))
-      .subscribe(
-        (currentScheme) => (currentColor = currentScheme ? 'dark' : 'light')
-      );
-
-    if (event.detail.value === 'default') {
-      event.detail.value = this.settings.prefersDark ? 'dark' : 'light';
-    }
-    this.settings.changeColorScheme(event.detail.value !== 'light');
+    this.settings.changeColorScheme(event.detail.value);
   }
 
   onChangeFontSize(event: CustomEvent) {

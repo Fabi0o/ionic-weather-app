@@ -24,9 +24,13 @@ export class AppComponent {
         this.settings.setFontSize(res.value as 'small' | 'default' | 'big');
     });
 
-    this.settings.isCurrentDark$
-      .pipe(take(1))
-      .subscribe((isDark) => this.settings.changeColorScheme(isDark));
+    Preferences.get({ key: 'color' }).then((res) => {
+      if (res.value) {
+        this.settings.changeColorScheme(
+          res.value as 'dark' | 'light' | 'default'
+        );
+      } else this.settings.changeColorScheme('default');
+    });
 
     translate.setDefaultLang('en');
     Preferences.get({ key: 'language' }).then((res) => {
