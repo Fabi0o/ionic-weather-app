@@ -17,7 +17,7 @@ export class SearchPage implements OnInit {
   form = new FormGroup({
     cityName: new FormControl('', {
       updateOn: 'change',
-      validators: [Validators.required, Validators.pattern(/^[A-Za-z]+$/)],
+      validators: [Validators.required, Validators.pattern(/^[A-Za-z\s]+$/)],
     }),
   });
 
