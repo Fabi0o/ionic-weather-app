@@ -4,7 +4,8 @@
     "LABEL": "Nazwa Miasta",
     "BUTTON1": "SZUKAJ",
     "BUTTON2": "UŻYJ AKTUALNEGO POŁOŻENIA",
-    "INPUTERROR": "W nawie miasta nie mogą znajdować się liczby!"
+    "INPUTERROR": "W nawie miasta nie mogą znajdować się liczby!",
+    "ERRORMESS": "Nie było można znaleźć miasta o nazwie {{city}}!"
   },
   "SETTINGS": {
     "TITLE": "Ustawienia",

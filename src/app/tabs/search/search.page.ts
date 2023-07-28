@@ -57,11 +57,15 @@ export class SearchPage implements OnInit {
               this.form.reset();
               this.router.navigateByUrl('tabs/weather');
             } else {
+              let errorMess: string;
+              this.translate
+                .get('SEARCH.ERRORMESS', { city: this.form.value.cityName })
+                .subscribe((res) => (errorMess = res));
               loadingEl.dismiss();
               this.alertCtrl
                 .create({
                   header: 'Error',
-                  message: `Could not find city of name ${this.form.value.cityName}`,
+                  message: errorMess!,
                   buttons: ['OK'],
                 })
                 .then((alertEl) => {

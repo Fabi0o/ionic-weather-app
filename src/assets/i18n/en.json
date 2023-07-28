@@ -4,7 +4,8 @@
     "LABEL": "City Name",
     "BUTTON1": "SEARCH",
     "BUTTON2": "USE CURRENT LOCATION",
-    "INPUTERROR": "City name can't containe numbers!"
+    "INPUTERROR": "City name can't containe numbers!",
+    "ERRORMESS": "Could not find city of name {{city}}!"
   },
   "SETTINGS": {
     "TITLE": "Settings",
