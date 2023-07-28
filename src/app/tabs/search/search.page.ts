@@ -6,6 +6,7 @@ import { catchError, of, take } from 'rxjs';
 import { GeoLocService } from 'src/app/geo-loc.service';
 import { HttpService } from 'src/app/http.service';
 import { SettingsService } from 'src/app/settings.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-search',
@@ -26,7 +27,8 @@ export class SearchPage implements OnInit {
     private geoLoc: GeoLocService,
     private settings: SettingsService,
     private alertCtrl: AlertController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {

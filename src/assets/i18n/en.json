@@ -1,0 +1,43 @@
+{
+  "SEARCH": {
+    "TITLE": "Search",
+    "LABEL": "City Name",
+    "BUTTON1": "SEARCH",
+    "BUTTON2": "USE CURRENT LOCATION",
+    "INPUTERROR": "City name can't containe numbers!"
+  },
+  "SETTINGS": {
+    "TITLE": "Settings",
+    "COLORINPUT": {
+      "LABEL": "Select Color Theme",
+      "DEFAULT": "Default",
+      "DARK": "Dark",
+      "LIGHT": "Light"
+    },
+    "LANGINPUT": {
+      "LABEL": "Select Language",
+      "DEFAULT": "Default",
+      "ENGLISH": "English",
+      "POLISH": "Polish"
+    },
+    "FONTINPUT": {
+      "LABEL": "Select Font Size",
+      "DEFAULT": "Default",
+      "SMALL": "Small",
+      "BIG": "Big"
+    },
+    "BUTTONS": {
+      "CANCEL": "CANCEL",
+      "OK": "OK"
+    }
+  },
+  "WEATHER": {
+    "TITLE": "Weather",
+    "NODATAMESS": "First search for a city to display weather informations!",
+    "WEATHERCARD": {
+      "CURRTEMP": "Current temperature:",
+      "MAXTEMP": "Max temperature:",
+      "MINTEMP": "Min temperature:"
+    }
+  }
+}

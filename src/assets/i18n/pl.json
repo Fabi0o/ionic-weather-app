@@ -1,0 +1,43 @@
+{
+  "SEARCH": {
+    "TITLE": "Szukaj",
+    "LABEL": "Nazwa Miasta",
+    "BUTTON1": "SZUKAJ",
+    "BUTTON2": "UŻYJ AKTUALNEGO POŁOŻENIA",
+    "INPUTERROR": "W nawie miasta nie mogą znajdować się liczby!"
+  },
+  "SETTINGS": {
+    "TITLE": "Ustawienia",
+    "COLORINPUT": {
+      "LABEL": "Wybierz Motyw Kolorystyczny",
+      "DEFAULT": "Domyślny",
+      "DARK": "Ciemny",
+      "LIGHT": "Jasny"
+    },
+    "LANGINPUT": {
+      "LABEL": "Wybierz Język",
+      "DEFAULT": "Domyślny",
+      "ENGLISH": "Angielski",
+      "POLISH": "Polski"
+    },
+    "FONTINPUT": {
+      "LABEL": "Wybierz Wielkość Czcionki",
+      "DEFAULT": "Domyślna",
+      "SMALL": "Mała",
+      "BIG": "Duża"
+    },
+    "BUTTONS": {
+      "CANCEL": "ANULUJ",
+      "OK": "OK"
+    }
+  },
+  "WEATHER": {
+    "TITLE": "Pogoda",
+    "NODATAMESS": "Najpierw wyszukaj miasto żeby wyświetlić pogodę!",
+    "WEATHERCARD": {
+      "CURRTEMP": "Aktualna temperatura:",
+      "MAXTEMP": "Max temperatura:",
+      "MINTEMP": "Min temperatura:"
+    }
+  }
+}

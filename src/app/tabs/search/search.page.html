@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Search </ion-title>
+    <ion-title> {{'SEARCH.TITLE'|translate}} </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,7 +11,7 @@
         <ion-col size-md="6" offset-md="3">
           <ion-item>
             <ion-input
-              label="City Name"
+              [label]="'SEARCH.LABEL'|translate"
               labelPlacement="floating"
               formControlName="cityName"
             >
@@ -21,7 +21,7 @@
             *ngIf="form.controls.cityName.hasError('pattern') && form.controls.cityName.touched"
           >
             <ion-text color="danger">
-              City name can't containe numbers!
+              {{'SEARCH.INPUTERROR'|translate}}
             </ion-text>
           </ion-item>
         </ion-col>
@@ -34,7 +34,7 @@
             expand="block"
             [disabled]="form.invalid"
           >
-            Search
+            {{'SEARCH.BUTTON1'|translate}}
           </ion-button>
         </ion-col>
       </ion-row>
@@ -46,7 +46,7 @@
             expand="block"
             (click)="onGetGeoLoc()"
           >
-            Use Current Location
+            {{'SEARCH.BUTTON2'|translate}}
           </ion-button>
         </ion-col>
       </ion-row>

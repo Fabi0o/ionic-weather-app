@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Settings </ion-title>
+    <ion-title> {{"SETTINGS.TITLE"|translate}} </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,33 +10,61 @@
       <ion-col size-md="6" offset-md="3">
         <ion-item>
           <ion-select
-            label="Select Color Theme"
+            [label]="'SETTINGS.COLORINPUT.LABEL'|translate"
             value="default"
             (ionChange)="onChangeTheme($any($event))"
           >
-            <ion-select-option value="default">Default</ion-select-option>
-            <ion-select-option value="dark">Dark</ion-select-option>
-            <ion-select-option value="light">Light</ion-select-option>
+            <ion-select-option value="default"
+              >{{"SETTINGS.COLORINPUT.DEFAULT"|translate}}</ion-select-option
+            >
+            <ion-select-option value="dark"
+              >{{"SETTINGS.COLORINPUT.DARK"|translate}}</ion-select-option
+            >
+            <ion-select-option value="light"
+              >{{"SETTINGS.COLORINPUT.LIGHT"|translate}}</ion-select-option
+            >
           </ion-select>
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col size-md="6" offset-md="3">
-        <ion-item> Change language </ion-item>
+        <ion-item
+          ><ion-select
+            [label]="'SETTINGS.LANGINPUT.LABEL'|translate"
+            value="default"
+            (ionChange)="onChangeLang($any($event))"
+          >
+            <ion-select-option value="default"
+              >{{'SETTINGS.LANGINPUT.DEFAULT'|translate}}</ion-select-option
+            >
+            <ion-select-option value="en"
+              >{{'SETTINGS.LANGINPUT.ENGLISH'|translate}}</ion-select-option
+            >
+            <ion-select-option value="pl"
+              >{{'SETTINGS.LANGINPUT.POLISH'|translate}}</ion-select-option
+            >
+          </ion-select></ion-item
+        >
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col size-md="6" offset-md="3">
         <ion-item>
           <ion-select
-            label="Select Font Size"
+            [label]="'SETTINGS.FONTINPUT.LABEL'|translate"
             value="default"
             (ionChange)="onChangeFontSize($any($event))"
           >
-            <ion-select-option value="default">Default</ion-select-option>
-            <ion-select-option value="small">Small</ion-select-option>
-            <ion-select-option value="big">Big</ion-select-option>
+            <ion-select-option value="default"
+              >{{'SETTINGS.FONTINPUT.DEFAULT'|translate}}</ion-select-option
+            >
+            <ion-select-option value="small"
+              >{{'SETTINGS.FONTINPUT.SMALL'|translate}}</ion-select-option
+            >
+            <ion-select-option value="big"
+              >{{'SETTINGS.FONTINPUT.BIG'|translate}}</ion-select-option
+            >
           </ion-select>
         </ion-item>
       </ion-col>

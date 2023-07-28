@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Weather </ion-title>
+    <ion-title> {{"WEATHER.TITLE"|translate}} </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -16,13 +16,16 @@
           <ion-card-header>
             <ion-card-title>{{weather.name}}</ion-card-title>
             <ion-card-subtitle>
-              Current temp: {{weather.main.temp | number:'2.0-0' }}°C
+              {{"WEATHER.WEATHERCARD.CURRTEMP" |translate}} {{weather.main.temp
+              | number:'2.0-0' }}°C
             </ion-card-subtitle>
             <ion-card-subtitle>
-              Max temp: {{weather.main.temp_max | number:'2.0-0' }}°C
+              {{"WEATHER.WEATHERCARD.MAXTEMP" |translate}}
+              {{weather.main.temp_max | number:'2.0-0' }}°C
             </ion-card-subtitle>
             <ion-card-subtitle>
-              Min temp: {{weather.main.temp_min | number:'2.0-0' }}°C
+              {{"WEATHER.WEATHERCARD.MINTEMP" |translate}}
+              {{weather.main.temp_min | number:'2.0-0' }}°C
             </ion-card-subtitle>
           </ion-card-header>
 
@@ -39,7 +42,7 @@
       <ion-row>
         <ion-col size-sm="6" offset-sm="3">
           <ion-item routerLink="/tabs/search">
-            First search for a city to display weather informations!
+            {{"WEATHER.NODATAMESS" | translate}}
           </ion-item>
         </ion-col>
       </ion-row>

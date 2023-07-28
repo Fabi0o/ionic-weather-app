@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LocalNotifications } from '@capacitor/local-notifications';
 import { HttpService } from './http.service';
 import { GeoLocService } from './geo-loc.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,14 @@ import { GeoLocService } from './geo-loc.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private http: HttpService, private geoLoc: GeoLocService) {
+  constructor(
+    private http: HttpService,
+    private geoLoc: GeoLocService,
+    private translate: TranslateService
+  ) {
+    translate.setDefaultLang('en');
+    translate.use('en');
+
     this.initializeApp();
   }
 
