@@ -2,25 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { SettingsService } from 'src/app/settings.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-settings',
   templateUrl: 'settings.page.html',
   styleUrls: ['settings.page.scss'],
 })
-export class SettingsPage implements OnInit {
+export class SettingsPage {
   constructor(
     private settings: SettingsService,
     private translate: TranslateService
   ) {}
 
-  ngOnInit(): void {
-    this.settings.isCurrentDark$
-      .pipe(take(1))
-      .subscribe((isDark) => this.settings.changeColorScheme(isDark));
-  }
-
   defaultLang = this.translate.getDefaultLang();
+
+  currFontSize = this.settings.currFontSize$;
 
   onChangeTheme(event: CustomEvent) {
     let currentColor;

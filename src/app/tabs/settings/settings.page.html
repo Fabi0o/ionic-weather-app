@@ -53,7 +53,7 @@
         <ion-item>
           <ion-select
             [label]="'SETTINGS.FONTINPUT.LABEL'|translate"
-            value="default"
+            [value]="currFontSize|async"
             (ionChange)="onChangeFontSize($any($event))"
           >
             <ion-select-option value="default"

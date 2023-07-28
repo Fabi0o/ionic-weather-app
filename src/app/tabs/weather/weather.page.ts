@@ -10,18 +10,12 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: 'weather.page.html',
   styleUrls: ['weather.page.scss'],
 })
-export class WeatherPage implements OnInit {
+export class WeatherPage {
   constructor(
     private http: HttpService,
     private settings: SettingsService,
     private translate: TranslateService
   ) {}
-
-  ngOnInit(): void {
-    this.settings.isCurrentDark$
-      .pipe(take(1))
-      .subscribe((isDark) => this.settings.changeColorScheme(isDark));
-  }
 
   currentWeather!: Observable<currentWeather>;
 

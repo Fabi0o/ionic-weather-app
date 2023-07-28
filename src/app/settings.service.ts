@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Preferences } from '@capacitor/preferences';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -9,8 +10,16 @@ export class SettingsService {
 
   private _isCurrentDark$ = new BehaviorSubject<boolean>(this.prefersDark);
 
+  private _currFontSize$ = new BehaviorSubject<'default' | 'big' | 'small'>(
+    'default'
+  );
+
   get isCurrentDark$() {
     return this._isCurrentDark$;
+  }
+
+  get currFontSize$() {
+    return this._currFontSize$;
   }
 
   changeColorScheme(bool: boolean) {
@@ -18,7 +27,9 @@ export class SettingsService {
     this._isCurrentDark$.next(document.body.classList.contains('dark'));
   }
 
-  setFontSize(size: 'small' | 'default' | 'big') {
+  async setFontSize(size: 'small' | 'default' | 'big') {
+    await Preferences.set({ key: 'font-size', value: size });
+    this._currFontSize$.next(size);
     document.body.classList.toggle('big-font', size === 'big');
     document.body.classList.toggle('small-font', size === 'small');
   }

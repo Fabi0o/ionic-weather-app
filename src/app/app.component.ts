@@ -3,6 +3,9 @@ import { LocalNotifications } from '@capacitor/local-notifications';
 import { HttpService } from './http.service';
 import { GeoLocService } from './geo-loc.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SettingsService } from './settings.service';
+import { Preferences } from '@capacitor/preferences';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +16,18 @@ export class AppComponent {
   constructor(
     private http: HttpService,
     private geoLoc: GeoLocService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private settings: SettingsService
   ) {
+    Preferences.get({ key: 'font-size' }).then((res) => {
+      if (res.value)
+        this.settings.setFontSize(res.value as 'small' | 'default' | 'big');
+    });
+
+    this.settings.isCurrentDark$
+      .pipe(take(1))
+      .subscribe((isDark) => this.settings.changeColorScheme(isDark));
+
     translate.setDefaultLang('en');
     translate.use('en');
 

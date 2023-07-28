@@ -13,7 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: 'search.page.html',
   styleUrls: ['search.page.scss'],
 })
-export class SearchPage implements OnInit {
+export class SearchPage {
   form = new FormGroup({
     cityName: new FormControl('', {
       updateOn: 'change',
@@ -30,12 +30,6 @@ export class SearchPage implements OnInit {
     private loadingCtrl: LoadingController,
     private translate: TranslateService
   ) {}
-
-  ngOnInit(): void {
-    this.settings.isCurrentDark$
-      .pipe(take(1))
-      .subscribe((isDark) => this.settings.changeColorScheme(isDark));
-  }
 
   onSubmit() {
     if (this.form.valid) {
