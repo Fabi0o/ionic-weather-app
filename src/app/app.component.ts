@@ -5,7 +5,7 @@ import { GeoLocService } from './geo-loc.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SettingsService } from './settings.service';
 import { Preferences } from '@capacitor/preferences';
-import { switchMap, take } from 'rxjs';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-root',

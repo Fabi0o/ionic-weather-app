@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { catchError, of, take } from 'rxjs';
+import { catchError, of } from 'rxjs';
 import { GeoLocService } from 'src/app/geo-loc.service';
 import { HttpService } from 'src/app/http.service';
-import { SettingsService } from 'src/app/settings.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -25,7 +24,6 @@ export class SearchPage {
     private httpService: HttpService,
     private router: Router,
     private geoLoc: GeoLocService,
-    private settings: SettingsService,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
     private translate: TranslateService

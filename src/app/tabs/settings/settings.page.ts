@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { take } from 'rxjs';
 import { SettingsService } from 'src/app/settings.service';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-settings',
@@ -9,10 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['settings.page.scss'],
 })
 export class SettingsPage {
-  constructor(
-    private settings: SettingsService,
-    private translate: TranslateService
-  ) {}
+  constructor(private settings: SettingsService) {}
 
   currFontSize$ = this.settings.currFontSize$;
 
