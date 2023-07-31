@@ -33,16 +33,16 @@ export class AppComponent {
     });
 
     translate.setDefaultLang('en');
-    Preferences.get({ key: 'language' }).then((res) => {
-      if (res.value) {
-        this.settings.changeLanguage(res.value as 'pl' | 'en' | 'default');
-      } else translate.use(translate.defaultLang);
-    });
-
-    this.initializeApp();
+    Preferences.get({ key: 'language' })
+      .then((res) => {
+        if (res.value)
+          this.settings.changeLanguage(res.value as 'pl' | 'en' | 'default');
+        else translate.use(translate.defaultLang);
+      })
+      .then(() => translate.onLangChange.subscribe(() => this.setLocalNoti()));
   }
 
-  initializeApp() {
+  setLocalNoti() {
     LocalNotifications.requestPermissions();
     LocalNotifications.checkPermissions().then((perm) => {
       if (perm.display === 'denied') return;
