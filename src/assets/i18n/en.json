@@ -40,5 +40,6 @@
       "MAXTEMP": "Max temperature:",
       "MINTEMP": "Min temperature:"
     }
-  }
+  },
+  "NOTITITLE": "Current weather in"
 }

@@ -5,7 +5,7 @@ import { GeoLocService } from './geo-loc.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SettingsService } from './settings.service';
 import { Preferences } from '@capacitor/preferences';
-import { take } from 'rxjs';
+import { switchMap, take } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -47,24 +47,33 @@ export class AppComponent {
     LocalNotifications.checkPermissions().then((perm) => {
       if (perm.display === 'denied') return;
       this.geoLoc.currentGeoLoc().then((geoLoc) => {
-        this.http.getWeatherByGeoLoc(geoLoc).subscribe((weather) => {
-          LocalNotifications.schedule({
-            notifications: [
-              {
-                title: `Current weather in ${weather.name}`,
-                body: `Temp: ${Math.floor(
-                  weather.main.temp
-                )}°C Min temp: ${Math.floor(
-                  weather.main.temp_min
-                )}°C Max temp: ${Math.floor(weather.main.temp_max)}°C ${
-                  weather.weather[0].description
-                }`,
-                id: 1,
-                schedule: { every: 'second', count: 10, repeats: true },
-              },
-            ],
+        let notiTitle: string;
+        this.translate
+          .get('NOTITITLE')
+          .pipe(
+            switchMap((title) => {
+              notiTitle = title;
+              return this.http.getWeatherByGeoLoc(geoLoc);
+            })
+          )
+          .subscribe((weather) => {
+            LocalNotifications.schedule({
+              notifications: [
+                {
+                  title: `${notiTitle} ${weather.name}`,
+                  body: `Temp: ${Math.floor(
+                    weather.main.temp
+                  )}°C Min temp: ${Math.floor(
+                    weather.main.temp_min
+                  )}°C Max temp: ${Math.floor(weather.main.temp_max)}°C ${
+                    weather.weather[0].description
+                  }`,
+                  id: 1,
+                  schedule: { every: 'second', count: 10, repeats: true },
+                },
+              ],
+            });
           });
-        });
       });
     });
   }
