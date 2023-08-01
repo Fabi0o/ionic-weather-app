@@ -41,5 +41,8 @@
       "MINTEMP": "Min temperature:"
     }
   },
-  "NOTITITLE": "Current weather in"
+  "NOTITITLE": "Current weather in",
+  "MAP": {
+    "BUTTON": "Show on map"
+  }
 }

@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { GoogleMap } from '@capacitor/google-maps';
+import { TranslateService } from '@ngx-translate/core';
 import { locData } from 'src/app/weather-data.model';
 import { environment } from 'src/environments/environment';
 
@@ -16,7 +17,7 @@ export class MapComponent {
 
   isLoaded = false;
 
-  constructor() {}
+  constructor(private translate: TranslateService) {}
 
   onShowMap() {
     this.createMap().then((newMap) => {
@@ -39,6 +40,7 @@ export class MapComponent {
         },
         zoom: 10,
       },
+      language: this.translate.currentLang,
     }));
   }
 }

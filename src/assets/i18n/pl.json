@@ -41,5 +41,8 @@
       "MINTEMP": "Min temperatura:"
     }
   },
-  "NOTITITLE": "Aktualna pogoda w"
+  "NOTITITLE": "Aktualna pogoda w",
+  "MAP": {
+    "BUTTON": "Pokaż na mapie"
+  }
 }
