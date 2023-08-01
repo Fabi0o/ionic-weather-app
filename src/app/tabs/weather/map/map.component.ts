@@ -1,15 +1,22 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
 import { GoogleMap } from '@capacitor/google-maps';
 import { TranslateService } from '@ngx-translate/core';
 import { locData } from 'src/app/weather-data.model';
 import { environment } from 'src/environments/environment';
+import { MapService } from '../map.service';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent {
+export class MapComponent implements OnDestroy {
   @ViewChild('map') mapRef!: ElementRef<HTMLElement>;
   @Input() geoLoc!: locData;
 
@@ -17,7 +24,10 @@ export class MapComponent {
 
   isLoaded = false;
 
-  constructor(private translate: TranslateService) {}
+  constructor(
+    private translate: TranslateService,
+    private mapService: MapService
+  ) {}
 
   onShowMap() {
     this.createMap().then((newMap) => {
@@ -25,6 +35,7 @@ export class MapComponent {
         coordinate: { lat: this.geoLoc.lat, lng: this.geoLoc.lon },
       });
       this.isLoaded = true;
+      this.mapService.map.next(newMap);
     });
   }
 
@@ -42,5 +53,9 @@ export class MapComponent {
       },
       language: this.translate.currentLang,
     }));
+  }
+
+  ngOnDestroy() {
+    this.isLoaded = true;
   }
 }
