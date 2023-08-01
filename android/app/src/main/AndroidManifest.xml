@@ -32,6 +32,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"></meta-data>
+            <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDE9hcAqlGdBpFveidnjlcDUSnS__7g8Fg"/>
         </provider>
     </application>
 
@@ -43,3 +44,4 @@
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-feature android:name="android.hardware.location.gps" />
 </manifest>
+
