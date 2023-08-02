@@ -16,13 +16,11 @@ import { MapService } from '../map.service';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements OnDestroy {
+export class MapComponent {
   @ViewChild('map') mapRef!: ElementRef<HTMLElement>;
   @Input() geoLoc!: locData;
 
   newMap!: GoogleMap;
-
-  isLoaded = false;
 
   constructor(
     private translate: TranslateService,
@@ -34,7 +32,6 @@ export class MapComponent implements OnDestroy {
       newMap.addMarker({
         coordinate: { lat: this.geoLoc.lat, lng: this.geoLoc.lon },
       });
-      this.isLoaded = true;
       this.mapService.map.next(newMap);
     });
   }
@@ -53,9 +50,5 @@ export class MapComponent implements OnDestroy {
       },
       language: this.translate.currentLang,
     }));
-  }
-
-  ngOnDestroy() {
-    this.isLoaded = true;
   }
 }
