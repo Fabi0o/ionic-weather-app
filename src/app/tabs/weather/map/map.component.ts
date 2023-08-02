@@ -1,14 +1,12 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   Input,
-  OnDestroy,
+  OnInit,
   ViewChild,
 } from '@angular/core';
-import { GoogleMap } from '@capacitor/google-maps';
-import { TranslateService } from '@ngx-translate/core';
 import { locData } from 'src/app/weather-data.model';
-import { environment } from 'src/environments/environment';
 import { MapService } from '../map.service';
 
 @Component({
@@ -16,39 +14,24 @@ import { MapService } from '../map.service';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent {
+export class MapComponent implements AfterViewInit {
   @ViewChild('map') mapRef!: ElementRef<HTMLElement>;
   @Input() geoLoc!: locData;
 
-  newMap!: GoogleMap;
+  constructor(private mapService: MapService) {}
 
-  constructor(
-    private translate: TranslateService,
-    private mapService: MapService
-  ) {}
-
-  onShowMap() {
-    this.createMap().then((newMap) => {
-      newMap.addMarker({
-        coordinate: { lat: this.geoLoc.lat, lng: this.geoLoc.lon },
-      });
-      this.mapService.map.next(newMap);
-    });
+  ngAfterViewInit(): void {
+    this.onShowMap();
   }
 
-  async createMap() {
-    return (this.newMap = await GoogleMap.create({
-      id: 'my-map',
-      element: this.mapRef.nativeElement,
-      apiKey: environment.apiKeyMaps,
-      config: {
-        center: {
-          lat: this.geoLoc.lat,
-          lng: this.geoLoc.lon,
-        },
-        zoom: 10,
-      },
-      language: this.translate.currentLang,
-    }));
+  onShowMap() {
+    this.mapService
+      .createMap(this.geoLoc.lat, this.geoLoc.lon, this.mapRef)
+      .then((newMap) => {
+        newMap.addMarker({
+          coordinate: { lat: this.geoLoc.lat, lng: this.geoLoc.lon },
+        });
+        this.mapService.map.next(newMap);
+      });
   }
 }
